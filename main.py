@@ -26,6 +26,7 @@ def get_lucky_phrase():
         "Puedes contar con ello.",
         "Como yo lo veo, sí.",
         "Es muy probable.",
+        "Probablemente.",
         "Las perspectivas son buenas.",
         "Los signos apuntan a que sí.",
         "Respuesta dudosa, vuelve a intentar.",
