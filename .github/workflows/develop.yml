@@ -1,0 +1,39 @@
+# Nombre del flujo de trabajo que se mostrará en la pestaña "Actions" de GitHub
+name: Prueba de API con FastAPI
+
+# Define cuándo se debe ejecutar el flujo de trabajo
+on:
+  push:
+    branches: [develop] # Se ejecuta en cada push a la rama 'main'
+  pull_request:
+    branches: [develop] # También se ejecuta en pull requests a 'main'
+
+# Define los trabajos (jobs) que se ejecutarán
+jobs:
+  # El único trabajo en este flujo de trabajo se llama "test"
+  test:
+    # El tipo de máquina virtual en la que se ejecutará el trabajo
+    runs-on: ubuntu-latest
+
+    # Los pasos que componen el trabajo
+    steps:
+      # 1. Clona tu repositorio en la máquina virtual
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
+
+      # 2. Configura el entorno de Python
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9" # Puedes cambiar la versión de Python si lo necesitas
+
+      # 3. Instala las dependencias del proyecto
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install fastapi uvicorn "pytest<8.0.0" httpx
+
+      # 4. Ejecuta las pruebas con pytest
+      - name: Ejecutar pruebas
+        run: |
+          pytest test_main.py
