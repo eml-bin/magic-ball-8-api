@@ -1,6 +1,28 @@
 import random
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware  # 1. Importar el middleware
+
+app = FastAPI()
+
+# 2. Configurar y agregar el middleware de CORS
+#    Esto debe ir después de `app = FastAPI()` y antes de las rutas.
+
+origins = [
+    "*",  # Permite todos los orígenes. Para producción, es mejor ser más específico.
+    # Por ejemplo:
+    # "http://localhost",
+    # "http://localhost:3000",
+    # "https://tu-dominio-del-frontend.com",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos (GET, POST, etc.)
+    allow_headers=["*"],  # Permite todas las cabeceras
+)
 
 app = FastAPI()
 
